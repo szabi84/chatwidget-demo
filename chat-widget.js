@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
   // Inject the CSS
   const style = document.createElement('style')
@@ -65,10 +65,12 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
     background-color: #ffffff;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  #chat-popup.visible {
+    transform: translateX(0); /* Jobbról belép */
   }
   #chat-header {
     display: block;
@@ -83,8 +85,22 @@
     cursor: pointer;
   }
   .close-icon {
-    width: 1.5rem;
+    width: 1.2rem;
   }
+  #fullscreen-popup {
+    border-style: none;
+    color: gray;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .fullscreen-icon {
+    width: 1.2rem;
+    position: relative;
+    top: -3px;
+  }
+  .fullscreen-icon-hidden {
+    display: none;
+  }      
   #chat-messages {
     flex: 1;
     overflow-y: auto;
@@ -174,6 +190,29 @@
     max-width: 100%;
     word-wrap: break-word;
   }
+  #chat-popup.fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    transform: translateX(0);
+    transition: transform 0.7s ease-in-out, width 0.5s ease-in-out;
+  }
+  #chat-messages.fullscreen {
+    width: 50%;
+    margin: 0 auto;
+    padding: 1rem;
+    height: calc(100% - 100px);
+    overflow-y: auto;
+  }
+
+  #chat-input-container.fullscreen {
+    width: 50%;
+    padding: 0.5rem 0.3rem;
+    margin: 0.5rem auto;
+  }  
   @media (max-width: 768px) {
     #chat-popup {
       position: fixed;
@@ -205,9 +244,17 @@
     </div>
     <div id="chat-popup" class="hidden">
       <div id="chat-header" >
+       <button id="fullscreen-popup">
+          <svg id="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" class="fullscreen-icon"  viewBox="0 0 512 512">
+            <path d="M344 0L488 0c13.3 0 24 10.7 24 24l0 144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32-32c-9.4-9.4-9.4-24.6 0-33.9l87-87L327 41c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512L24 512c-13.3 0-24-10.7-24-24L0 344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8z"/>
+          </svg>
+          <svg id="fullscreen-exit-icon" xmlns="http://www.w3.org/2000/svg" class="fullscreen-icon fullscreen-icon-hidden" viewBox="0 0 512 512">
+            <path d="M439 7c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8l-144 0c-13.3 0-24-10.7-24-24l0-144c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39L439 7zM72 272l144 0c13.3 0 24 10.7 24 24l0 144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39L73 505c-9.4 9.4-24.6 9.4-33.9 0L7 473c-9.4-9.4-9.4-24.6 0-33.9l87-87L55 313c-6.9-6.9-8.9-17.2-5.2-26.2s12.5-14.8 22.2-14.8z"/>
+          </svg> 
+        </button>
         <button id="close-popup">
-          <svg xmlns="http://www.w3.org/2000/svg" class="close-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="close-icon" viewBox="0 0 384 512">
+            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
           </svg>
         </button>
       </div>
@@ -216,7 +263,9 @@
         <div class="input-container">
           <textarea type="text" id="chat-input" placeholder="Type your message..."></textarea>
           <button id="chat-submit">
-            <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 384 512">
+              <path fill="#ffffff" d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -258,8 +307,29 @@
   const chatBubble = document.getElementById('chat-bubble')
   const chatPopup = document.getElementById('chat-popup')
   const closePopup = document.getElementById('close-popup')
+  const fullscreenPopup = document.getElementById('fullscreen-popup')
+  const chatInputContainer = document.getElementById('chat-input-container')
+  const fullscreenIcon = document.getElementById('fullscreen-icon')
+  const fullscreenExitIcon = document.getElementById('fullscreen-exit-icon')
 
-  chatSubmit.addEventListener('click', function() {
+  fullscreenPopup.addEventListener('click', function () {
+    if (!chatPopup.classList.contains('fullscreen')) {
+      chatPopup.classList.add('fullscreen')
+      chatMessages.classList.add('fullscreen')
+      chatInputContainer.classList.add('fullscreen')
+      fullscreenIcon.classList.add('fullscreen-icon-hidden')
+      fullscreenExitIcon.classList.remove('fullscreen-icon-hidden')
+    } else {
+      chatPopup.classList.remove('fullscreen')
+      chatMessages.classList.remove('fullscreen')
+      chatInputContainer.classList.remove('fullscreen')
+      fullscreenIcon.classList.remove('fullscreen-icon-hidden')
+      fullscreenExitIcon.classList.add('fullscreen-icon-hidden')
+    }
+  })
+
+
+  chatSubmit.addEventListener('click', function () {
     const message = chatInput.value.trim()
     if (!message) return
     chatMessages.scrollTop = chatMessages.scrollHeight
@@ -268,7 +338,6 @@
     resetTextarea()
   })
 
-  // Auto-resize the textarea
   chatInput.addEventListener('input', function () {
     this.style.height = 'auto'
     this.style.height = `${this.scrollHeight}px`
@@ -286,21 +355,27 @@
     chatInput.value = ''
   }
 
-  chatInput.addEventListener('keyup', function(event) {
+  chatInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
       chatSubmit.click()
       resetTextarea()
     }
   })
 
-  chatBubble.addEventListener('click', function() {
+  chatBubble.addEventListener('click', function () {
     togglePopup()
+
   })
 
-  closePopup.addEventListener('click', function() {
+  closePopup.addEventListener('click', function () {
     togglePopup()
     chatMessages.innerHTML = ''
     chatInput.value = ''
+    chatMessages.classList.remove('fullscreen')
+    chatInputContainer.classList.remove('fullscreen')
+    chatPopup.classList.remove('fullscreen')
+    fullscreenIcon.classList.remove('fullscreen-icon-hidden')
+    fullscreenExitIcon.classList.add('fullscreen-icon-hidden')
   })
 
   function togglePopup() {
@@ -310,17 +385,16 @@
     if (!chatPopup.classList.contains('hidden')) {
       document.getElementById('chat-input').focus()
       chatBubble.classList.add('hidden')
+      chatPopup.classList.add('visible')
     } else {
       chatBubble.classList.remove('hidden')
       chatBubble.classList.add('visible')
-  }
+      chatPopup.classList.remove('visible')
+    }
   }
 
   function onUserRequest(message) {
-    // Handle user request here
     console.log('User request:', message)
-
-    // Display user message
     const messageElement = document.createElement('div')
     messageElement.className = 'user-message-container'
     messageElement.innerHTML = `
