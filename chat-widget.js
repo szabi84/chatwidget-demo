@@ -4,14 +4,14 @@
   const style = document.createElement('style')
   style.innerHTML = `
   .hidden {
-    opacity: 0; /* Elhalványítja az elemet */
-    visibility: hidden; /* Láthatatlanná teszi, de az elem a DOM-ban marad */
-    pointer-events: none; /* Klikkelhetővé sem válik */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
   .visible {
-    opacity: 1; /* Újra láthatóvá teszi az elemet */
-    visibility: visible; /* Láthatóvá teszi */
-    pointer-events: auto; /* Engedélyezi a kattintásokat */
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
   #chat-widget-container {
     position: fixed;
@@ -25,9 +25,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    transform: translateY(0); /* Alapértelmezett helyzet */
-    transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Animáció */
-    opacity: 1; /* Teljesen látható */
+    transform: translateY(0);
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    opacity: 1;
     visibility: visible;
     display: flex;
     justify-content: center;
@@ -71,7 +71,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   #chat-popup.visible {
-    transform: translateX(0); /* Jobbról belép */
+    transform: translateX(0);
   }
   #chat-header {
     display: block;
