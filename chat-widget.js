@@ -23,8 +23,8 @@
   }
   #chat-bubble {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
     transform: translateY(0);
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
     opacity: 1;
@@ -33,16 +33,15 @@
     justify-content: center;
     align-items: center;
     border-radius: 9999px;
-    width: 4rem;
-    height: 4rem;
+    width: 2.7rem;
+    height: 2.7rem;
     font-size: 1.875rem;
     line-height: 2.25rem;
-    background-color: #1F2937;
     cursor: pointer;
+    border: none;
   }
   .chat-icon{
-    width: 1.5rem;
-    fill: #fff;
+    width: 1.2rem;
   }
   #chat-bubble.hidden {
     transform: translateY(100%);
@@ -144,7 +143,7 @@
     padding: 0.4rem 0.42rem 0.2rem 0.4rem;
     border-radius: 9999px;
     color: #ffffff;
-    background-color: #1F2937;
+    background-color: #2f3d54;
     cursor: pointer;
     float: right;
     border: none;
@@ -231,21 +230,32 @@
 
   document.head.appendChild(style)
 
+  const scriptTagElement = document.currentScript
+  const chatBubbleColor = scriptTagElement.dataset.chatBubbleColor || '#FF9800'
+  const chatBubbleIcon = scriptTagElement.dataset.chatBubbleIcon || '#2f3d54'
+  const chatBubblePosition = scriptTagElement.dataset.chatBubblePosition || 'right'
+
   // Create chat widget container
   const chatWidgetContainer = document.createElement('div')
   chatWidgetContainer.id = 'chat-widget-container'
   document.body.appendChild(chatWidgetContainer)
 
+ 
+
   // Inject the HTML
   chatWidgetContainer.innerHTML = `
-    <div id="chat-bubble" class="chat-bubble">
-      <svg class="chat-icon" viewBox="0 0 44 48" xmlns="http://www.w3.org/2000/svg">
+    <button id="chat-bubble" class="chat-bubble" style="
+      background-color: ${chatBubbleColor}; 
+      ${chatBubblePosition === 'left' ? 'left: 20px;' : 'right: 20px;'}
+      tabindex="0" role="button" aria-label="Open chat widget"
+    >
+      <svg class="chat-icon" style="fill: ${chatBubbleIcon}" viewBox="0 0 44 48" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M0 8C0 3.58173 3.58173 0 8 0H36C40.4183 0 44 3.58173 44 8V36C44 39.9183 41.183 43.1786 37.4639 43.8664L35.366 47.5C34.9811 48.1667 34.0189 48.1667 33.634 47.5L31.6133 44H8C3.58173 44 0 40.4183 0 36V8ZM11.0169 22.6665C10.9271 22.2176 10.4904 21.9265 10.0415 22.0163C9.59259 22.106 9.30139 22.5428 9.39117 22.9917C9.59003 23.9858 9.37256 26.7381 6.37378 28.7087C5.99121 28.9602 5.88489 29.4742 6.13629 29.8568C6.3877 30.2393 6.90167 30.3457 7.2843 30.0943C8.36615 29.3833 9.16254 28.5765 9.73926 27.7524C12.7043 30.6961 19.4324 36.566 22.6976 36.566C25.9263 36.566 32.3096 30.8267 35.2042 27.8523C35.7747 28.6416 36.55 29.4121 37.5881 30.0943C37.9707 30.3457 38.4847 30.2393 38.7361 29.8568C38.9875 29.4742 38.8812 28.9602 38.4985 28.7087C35.4998 26.7381 35.2823 23.9858 35.4811 22.9917C35.5709 22.5428 35.2798 22.106 34.8309 22.0163C34.382 21.9265 33.9453 22.2176 33.8555 22.6665C33.7245 23.3211 33.72 24.3046 34.0216 25.402L34.0068 25.3752C33.0397 26.6186 29.3647 29.1055 22.4016 29.1055C15.5442 29.1055 11.8759 26.6936 10.8422 25.4328C11.1525 24.323 11.149 23.3271 11.0169 22.6665Z"/>
       </svg>
-    </div>
+    </button>
     <div id="chat-popup" class="hidden">
       <div id="chat-header" >
-       <button id="fullscreen-popup">
+       <button id="fullscreen-popup" aria-label="Open chat widget fullscreen way">
           <svg id="fullscreen-icon" xmlns="http://www.w3.org/2000/svg" class="fullscreen-icon"  viewBox="0 0 512 512">
             <path d="M344 0L488 0c13.3 0 24 10.7 24 24l0 144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39-87 87c-9.4 9.4-24.6 9.4-33.9 0l-32-32c-9.4-9.4-9.4-24.6 0-33.9l87-87L327 41c-6.9-6.9-8.9-17.2-5.2-26.2S334.3 0 344 0zM168 512L24 512c-13.3 0-24-10.7-24-24L0 344c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39 87-87c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8z"/>
           </svg>
@@ -253,7 +263,7 @@
             <path d="M439 7c9.4-9.4 24.6-9.4 33.9 0l32 32c9.4 9.4 9.4 24.6 0 33.9l-87 87 39 39c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8l-144 0c-13.3 0-24-10.7-24-24l0-144c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2l39 39L439 7zM72 272l144 0c13.3 0 24 10.7 24 24l0 144c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-39-39L73 505c-9.4 9.4-24.6 9.4-33.9 0L7 473c-9.4-9.4-9.4-24.6 0-33.9l87-87L55 313c-6.9-6.9-8.9-17.2-5.2-26.2s12.5-14.8 22.2-14.8z"/>
           </svg> 
         </button>
-        <button id="close-popup">
+        <button id="close-popup" aria-label="Close chat widget">
           <svg xmlns="http://www.w3.org/2000/svg" class="close-icon" viewBox="0 0 384 512">
             <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
           </svg>
