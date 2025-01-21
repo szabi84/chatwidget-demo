@@ -230,17 +230,16 @@
 
   document.head.appendChild(style)
 
-  const scriptTagElement = document.currentScript
-  const chatBubbleColor = scriptTagElement.dataset.chatBubbleColor || '#FF9800'
-  const chatBubbleIcon = scriptTagElement.dataset.chatBubbleIcon || '#2f3d54'
-  const chatBubblePosition = scriptTagElement.dataset.chatBubblePosition || 'right'
+  const scriptTag = document.currentScript
+  console.log('Parameters: ', scriptTag.dataset)
+  const chatBubbleColor = scriptTag.dataset.chatBubbleColor || '#FF9800'
+  const chatBubbleIcon = scriptTag.dataset.chatBubbleIcon || '#2f3d54'
+  const chatBubblePosition = scriptTag.dataset.chatBubblePosition || 'right'
 
   // Create chat widget container
   const chatWidgetContainer = document.createElement('div')
   chatWidgetContainer.id = 'chat-widget-container'
   document.body.appendChild(chatWidgetContainer)
-
- 
 
   // Inject the HTML
   chatWidgetContainer.innerHTML = `
@@ -283,7 +282,6 @@
     </div>
   `
 
-  const scriptTag = document.currentScript
   // AWS.config.region = 'us-east-1'; // Region
   // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
   //   IdentityPoolId: scriptTag.dataset.identityPoolId,
@@ -309,7 +307,6 @@
   const localeId = scriptTag.dataset.localeId || 'en_US'
   let sessionId = 'user-' + Date.now()
   let sessionState = {}
-
 
   // Add event listeners
   const chatInput = document.getElementById('chat-input')
@@ -338,7 +335,6 @@
       fullscreenExitIcon.classList.add('fullscreen-icon-hidden')
     }
   })
-
 
   chatSubmit.addEventListener('click', function () {
     const message = chatInput.value.trim()
