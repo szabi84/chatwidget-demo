@@ -428,20 +428,17 @@
     const focusableContent = modal.querySelectorAll(focusableElements)
     const firstElement = focusableContent[0]
     const lastElement = focusableContent[focusableContent.length - 1]
-  
-    // Ha a Tab billentyűt nyomja a felhasználó
+
     if (event.key === 'Tab') {
       if (event.shiftKey) {
-        // Shift + Tab: Ellenőrizd, hogy az első elemen van-e a fókusz
         if (document.activeElement === firstElement) {
           event.preventDefault()
-          lastElement.focus() // Ugrás az utolsó fókuszálható elemre
+          lastElement.focus()
         }
       } else {
-        // Tab: Ellenőrizd, hogy az utolsó elemen van-e a fókusz
         if (document.activeElement === lastElement) {
           event.preventDefault()
-          firstElement.focus() // Ugrás az első fókuszálható elemre
+          firstElement.focus()
         }
       }
     }
