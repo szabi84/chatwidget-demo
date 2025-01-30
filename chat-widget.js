@@ -204,7 +204,7 @@
     align-items: center;
   }
   .chatbot-icon-svg {
-    width: 1rem;
+    width: 1.5rem;
     fill: #2d3748;
 
   }
