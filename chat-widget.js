@@ -40,6 +40,9 @@
   }
   #chat-bubble:focus {
     outline: none;
+  }
+  .chat-bubble:focus-visible {
+    outline: none;
     box-shadow: inset 0 0 0 .21429rem rgba(255,255,255,0.4);
   }
   .chat-icon{
@@ -93,9 +96,12 @@
     padding: 2px 2px 0px 6px
   }
   #close-popup:focus {
+    outline: none;
+  }
+  #close-popup:focus-visible {
     border: 2px solid #2f3d5470;
     border-radius: 6px;
-  }  
+  }
   .close-icon {
     width: 1.2rem;
   }
@@ -106,9 +112,12 @@
     padding: 5px 5px 0px 5px;
   }
   #fullscreen-popup:focus {
+    outline: none;
+  }
+  #fullscreen-popup:focus-visible {
     border: 2px solid #2f3d5470;
     border-radius: 6px;
-  }    
+  }
   .fullscreen-icon {
     width: 1rem;
   }
@@ -171,6 +180,9 @@
     border: 2px solid transparent;
   }
   #chat-submit:focus {
+    outline: none;
+  }
+  #chat-submit:focus-visible {
     border: 2px solid #ffffff70;
   }     
   .user-message-container {
