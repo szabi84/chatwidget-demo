@@ -24,7 +24,6 @@
   #chat-bubble {
     position: fixed;
     bottom: 15px;
-    right: 15px;
     transform: translateY(0);
     transition: transform 1s ease-in-out, opacity 1s ease-in-out;
     opacity: 1;
@@ -99,7 +98,7 @@
     outline: none;
   }
   #close-popup:focus-visible {
-    border: 2px solid #2f3d5470;
+    border: 2px solid #2B3E5370;
     border-radius: 6px;
   }
   .close-icon {
@@ -115,7 +114,7 @@
     outline: none;
   }
   #fullscreen-popup:focus-visible {
-    border: 2px solid #2f3d5470;
+    border: 2px solid #2B3E5370;
     border-radius: 6px;
   }
   .fullscreen-icon {
@@ -173,7 +172,7 @@
     padding: 0.4rem 0.42rem 0.2rem 0.4rem;
     border-radius: 9999px;
     color: #ffffff;
-    background-color: #2f3d54;
+    background-color: #2B3E53;
     cursor: pointer;
     float: right;
     border: none;
@@ -268,9 +267,9 @@
   document.head.appendChild(style)
 
   const scriptTag = document.currentScript
-  console.log('Parameters: ', scriptTag.dataset)
-  const chatBubbleColor = scriptTag.dataset.chatBubbleColor || '#FF9800'
-  const chatBubbleIcon = scriptTag.dataset.chatBubbleIcon || '#2f3d54'
+  //console.log('Parameters: ', scriptTag.dataset)
+  const chatBubbleColor = scriptTag.dataset.chatBubbleColor || '#2B3E53'
+  const chatBubbleIcon = scriptTag.dataset.chatBubbleIcon || '#FFFFFF'
   const chatBubblePosition = scriptTag.dataset.chatBubblePosition || 'right'
 
   // Create chat widget container
@@ -280,9 +279,8 @@
 
   // Inject the HTML
   chatWidgetContainer.innerHTML = `
-    <button id="chat-bubble" class="chat-bubble" style="
-      background-color: ${chatBubbleColor}; 
-      ${chatBubblePosition === 'left' ? 'left: 20px;' : 'right: 20px;'}
+    <button id="chat-bubble" class="chat-bubble" 
+      style="background-color: ${chatBubbleColor}; ${chatBubblePosition === 'left' ? 'left: 15px;' : 'right: 15px;'}"
       tabindex="0" role="button" aria-label="Open chat widget"
     >
       <svg class="chat-icon" style="fill: ${chatBubbleIcon}" viewBox="0 0 23 19" fill="none" xmlns="http://www.w3.org/2000/svg">
