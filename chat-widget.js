@@ -267,7 +267,6 @@
   document.head.appendChild(style)
 
   const scriptTag = document.currentScript
-  //console.log('Parameters: ', scriptTag.dataset)
   const chatBubbleColor = scriptTag.dataset.chatBubbleColor || '#2B3E53'
   const chatBubbleIcon = scriptTag.dataset.chatBubbleIcon || '#FFFFFF'
   const chatBubblePosition = scriptTag.dataset.chatBubblePosition || 'right'
