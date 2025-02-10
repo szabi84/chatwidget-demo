@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyara Assistant Widget</title>
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1692.0.min.js"></script>
-
-    <!-- data-chat-bubble-color, data-chat-bubble-icon and data-chat-bubble-position are optional parameters. If these values are not provided, default Cyara colors are going to be used.   -->
-    <script async src="./chat-widget.js"
+    <!--
+    Optional params:
+     - data-locale-id
+     - data-chat-bubble-color
+     - data-chat-bubble-icon
+     - data-chat-bubble-position
+    -->
+    <!-- Either the chat-widget.js can be reached by the local path <script async src="./chat-widget.js"... or the latest version of min.js public version -->
+    <script async src="https://cdn.jsdelivr.net/gh/szabi84/chatwidget-demo@main/chat-widget-0.6.min.js"
             data-region="us-east-1"
             data-access-key-id="your-access-key-id"
             data-secret-access-key="your-secret-access-key"
@@ -22,11 +28,11 @@
     ></script>
 </head>
 <body style="background-color: rgb(233, 226, 226);">
-    <div style="display: flex; padding: 2rem; flex-direction: column; justify-content: center; align-items: center; height: 100vh; ">
-        <div>
-            <h1 style="font-size: 1.5rem;line-height: 2rem; font-weight: 700; line-height: 1.625; ">Cyara Assistant Widget demo</h1>
-        </div>
+<div style="display: flex; padding: 2rem; flex-direction: column; justify-content: center; align-items: center; height: 100vh; ">
+    <div>
+        <h1 style="font-size: 1.5rem;line-height: 2rem; font-weight: 700; line-height: 1.625; ">Cyara Assistant Widget demo</h1>
     </div>
+</div>
 </body>
 </html>
 
